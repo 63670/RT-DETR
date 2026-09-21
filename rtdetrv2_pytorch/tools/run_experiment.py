@@ -67,6 +67,18 @@ def run(command, env, log_path=None):
             raise subprocess.CalledProcessError(process.returncode, command)
 
 
+def remove_extra_checkpoints(output_dir):
+    """Remove saved model checkpoints after successful testing, retaining best.pth only."""
+    deleted = []
+    for pattern in ("last.pth", "checkpoint*.pth"):
+        for checkpoint in output_dir.glob(pattern):
+            checkpoint.unlink()
+            deleted.append(checkpoint.name)
+    (output_dir / "deleted_checkpoints.log").write_text(
+        "\n".join(deleted) + ("\n" if deleted else ""), encoding="utf-8"
+    )
+
+
 def main():
     """Fine-tune the model and evaluate its best checkpoint without splitting result directories."""
     args = parse_args()
@@ -132,6 +144,7 @@ def main():
     if args.seed is not None:
         test_command.extend(["--seed", str(args.seed)])
     run(test_command, env, output_dir / "test_metrics.log")
+    remove_extra_checkpoints(output_dir)
 
 
 if __name__ == "__main__":

@@ -19,6 +19,9 @@ python tools/run_experiment.py \
 The output directory contains the training checkpoints and logs, the automatic
 test log (`test_metrics.log`), the evaluated checkpoint path
 (`test_checkpoint.txt`), and the supplied random seed (`seed.txt`).
+After a successful test, the runner retains `best.pth` and deletes `last.pth`
+and `checkpoint*.pth`; removed filenames are recorded in
+`deleted_checkpoints.log`.
 
 For multiple seeds, change both `--output-dir` and `--seed` on each run. The
 runner is intended for a single-GPU process; use the native distributed launch
