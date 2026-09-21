@@ -1,0 +1,9 @@
+__include__: [
+  './rtdetrv2_r18vd_pingwen.yml',
+]
+
+# Evaluate the final checkpoint on the held-out test split.
+val_dataloader:
+  dataset:
+    img_folder: /home/tkz/datasets/pingwen_coco_rtdetr
+    ann_file: /home/tkz/datasets/pingwen_coco_rtdetr/annotations/instances_test2017.json
