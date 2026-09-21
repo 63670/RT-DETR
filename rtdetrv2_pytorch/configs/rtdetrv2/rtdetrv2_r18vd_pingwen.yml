@@ -1,0 +1,42 @@
+__include__: [
+  './rtdetrv2_r18vd_120e_coco.yml',
+]
+
+# =========================================================
+# Output
+# =========================================================
+
+output_dir: ./output/rtdetrv2_r18vd_pingwen
+
+
+# =========================================================
+# Dataset
+# =========================================================
+
+num_classes: 3
+
+# 自定义数据集，不使用 MS-COCO category 映射
+remap_mscoco_category: False
+
+
+train_dataloader:
+  total_batch_size: 2
+
+  dataset:
+    img_folder: /home/tkz/datasets/pingwen_coco_rtdetr
+    ann_file: /home/tkz/datasets/pingwen_coco_rtdetr/annotations/instances_train2017.json
+
+
+val_dataloader:
+  total_batch_size: 2
+
+  dataset:
+    img_folder: /home/tkz/datasets/pingwen_coco_rtdetr
+    ann_file: /home/tkz/datasets/pingwen_coco_rtdetr/annotations/instances_val2017.json
+
+
+# =========================================================
+# Training
+# =========================================================
+
+epoches: 300
